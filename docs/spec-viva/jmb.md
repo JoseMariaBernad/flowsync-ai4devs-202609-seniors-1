@@ -37,6 +37,11 @@ El sistema SHALL representar a un usuario, en todas las respuestas que lo incluy
 - **WHEN** se devuelve un usuario sin `fullName` y con email `carol.smith@x.com`
 - **THEN** `fullName` es `null` e `initials` vale `"CX"`: la inicial de lo que va antes de la arroba más la inicial de lo que va después
 
+#### Scenario: Nombre formado solo por espacios
+
+- **WHEN** se devuelve un usuario que se registró con `fullName` igual a `"   "`
+- **THEN** `fullName` se devuelve tal cual (`"   "`) e `initials` es una cadena vacía
+
 ### Requirement: Registro de una cuenta nueva
 
 El sistema SHALL aceptar `POST /api/v1/auth/signup` con `fullName`, `email`, `password` y `passwordConfirmation`, crear la cuenta y devolver en la misma respuesta el usuario creado y un token de acceso, de modo que quien se registra queda ya identificado sin tener que iniciar sesión después.
@@ -212,7 +217,7 @@ La aplicación web SHALL mostrar en `/profile`, a quien tiene sesión, un círcu
 #### Scenario: Cerrar sesión desde la pantalla
 
 - **WHEN** la persona pulsa «Cerrar sesión»
-- **THEN** el botón muestra «Cerrando sesión…», la sesión se cierra en el navegador aunque el servidor no responda, y la persona acaba en `/login`
+- **THEN** la persona acaba en `/login` de inmediato, sin esperar a que responda el servidor, y la sesión queda cerrada en el navegador aunque el servidor no llegue a responder
 
 ### Requirement: Acceso a las pantallas según la sesión
 
